@@ -42,24 +42,35 @@ function ChildUI({ receiver, sendMessage, messages }) {
       <h3>AAC Communicator</h3>
       <p>Sending to: <strong>{receiver}</strong></p>
 
-      {/* 🔹 CATEGORII */}
-      <div style={{ margin: '1rem 0', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center' }}>
-        {Object.keys(vocabularyByCategory).map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            style={{
-              padding: '0.5rem 1rem',
-              backgroundColor: selectedCategory === cat ? '#4caf50' : '#e0e0e0',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: 'pointer',
-            }}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+{/* 🔹 CATEGORII CU IMAGINI */}
+<div style={{ margin: '1rem 0', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center' }}>
+  {Object.keys(vocabularyByCategory).map((cat) => (
+    <button
+      key={cat}
+      onClick={() => setSelectedCategory(cat)}
+      style={{
+        backgroundColor: selectedCategory === cat ? '#d0f0d0' : 'transparent',
+        border: 'none',
+        borderRadius: '8px',
+        cursor: 'pointer',
+        padding: 0,
+      }}
+    >
+      <img
+        src={`/${cat.toLowerCase()}.png`}
+        alt={cat}
+        style={{
+          width: '80px',
+          height: '80px',
+          objectFit: 'contain',
+          border: selectedCategory === cat ? '2px solid #4caf50' : '2px solid transparent',
+          borderRadius: '8px',
+        }}
+      />
+    </button>
+  ))}
+</div>
+
 
       {/* 🔹 CUVINTE DIN CATEGORIE */}
       {selectedCategory && (

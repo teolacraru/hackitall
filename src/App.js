@@ -9,6 +9,7 @@ const DEFAULT_SENDER = 'Child';
 
 function App() {
   const [role, setRole] = useState(null);
+  const [childPage, setChildPage] = useState(null);
   const [messagesByReceiver, setMessagesByReceiver] = useState(() => {
     const saved = localStorage.getItem('aac-messages');
     return saved ? JSON.parse(saved) : {};
@@ -55,6 +56,38 @@ function App() {
 			</button>
 		</div>
 	  </div>
+	);
+  }
+
+  if (role === 'child' && !childPage) {
+	return (
+	  <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+		<h2>What would you like to do?</h2>
+		<div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '2rem' }}>
+
+		  {/* Buton compune mesaj */}
+		  <button onClick={() => setChildPage('compose')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
+			<img src="/compose.png" alt="Compose" style={{ width: '120px', height: '120px' }} />
+			<div>Compose Message</div>
+		  </button>
+
+		  {/* Buton primește mesaj */}
+		  <button onClick={() => setChildPage('receive')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
+			<img src="/receive.png" alt="Receive" style={{ width: '120px', height: '120px' }} />
+			<div>Receive Message</div>
+		  </button>
+		</div>
+	  </div>
+	);
+  }
+
+  if (role === 'child' && childPage === 'compose') {
+	return (
+	  <ChildUI
+		receiver="Parent"
+		sendMessage={sendMessage}
+		messages={messagesByReceiver['Parent'] || []}
+	  />
 	);
   }
 
