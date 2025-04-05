@@ -1,0 +1,49 @@
+.app-container {
+	font-family: Arial, sans-serif;
+	text-align: center;
+	padding: 2rem;
+
+	/* 🔽 adăugăm pentru centrare verticală și orizontală */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	height: 100vh; /* full screen height */
+  }
+
+
+  .login-screen {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  }
+
+  .logo {
+	width: 120px;
+	height: 120px;
+	border-radius: 100%;
+	background-color: #eee;
+	margin-bottom: 2rem;
+  }
+
+  .button-group {
+	display: flex;
+	gap: 1rem;
+	margin-bottom: 1rem;
+  }
+
+  .user-button {
+	padding: 1rem 2rem;
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	color: rgb(255, 255, 255);
+	background: #fc7f45;
+  }
+/*
+  body {
+	background-color: #fdfaf7;
+  } */
