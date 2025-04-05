@@ -15,6 +15,9 @@ function App() {
     const saved = localStorage.getItem('aac-messages');
     return saved ? JSON.parse(saved) : {};
   });
+  const messagetoChild = messagesByReceiver['Child'] || [];
+  const messagetoParent = messagesByReceiver['Parent'] || [];
+  console.log('Messages to Child:', messagetoChild);
 
   useEffect(() => {
     localStorage.setItem('aac-messages', JSON.stringify(messagesByReceiver));
@@ -60,23 +63,55 @@ function App() {
     );
   }
 
-  if (role === 'child' && !childPage) {
-    return (
-      <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-        <h2>What would you like to do?</h2>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '2rem' }}>
-          <button onClick={() => setChildPage('compose')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
-            <img src="/compose.png" alt="Compose" style={{ width: '120px', height: '120px' }} />
-            <div>Compose Message</div>
-          </button>
-          <button onClick={() => setChildPage('receive')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
-            <img src="/receive.png" alt="Receive" style={{ width: '120px', height: '120px' }} />
-            <div>Receive Message</div>
-          </button>
-        </div>
-      </div>
-    );
+//   if (role === 'child' && !childPage) {
+//     return (
+//       <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+//         <h2>What would you like to do?</h2>
+//         <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '2rem' }}>
+//           <button onClick={() => setChildPage('compose')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
+//             <img src="/compose.png" alt="Compose" style={{ width: '120px', height: '120px' }} />
+//             <div>Compose Message</div>
+//           </button>
+//           <button onClick={() => setChildPage('receive')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
+//             <img src="/receive.png" alt="Receive" style={{ width: '120px', height: '120px' }} />
+//             <div>Receive Message</div>
+//           </button>
+//         </div>
+//       </div>
+//     );
+//   }
+
+if (role === 'child' && !childPage) {
+	return (
+	  <div style={{ textAlign: 'center', marginTop: '3rem', position: 'relative' }}>
+		<button
+		  onClick={() => setRole(null)}
+		  style={{
+			position: 'absolute',
+			top: '1rem',
+			left: '1rem',
+			background: 'transparent',
+			border: 'none',
+			fontSize: '1.5rem',
+			cursor: 'pointer'
+		  }}
+		>⬅</button>
+
+		<h2>What would you like to do?</h2>
+		<div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '2rem' }}>
+		  <button onClick={() => setChildPage('compose')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
+			<img src="/compose.png" alt="Compose" style={{ width: '120px', height: '120px' }} />
+			<div>Compose Message</div>
+		  </button>
+		  <button onClick={() => setChildPage('receive')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
+			<img src="/receive.png" alt="Receive" style={{ width: '120px', height: '120px' }} />
+			<div>Receive Message</div>
+		  </button>
+		</div>
+	  </div>
+	);
   }
+
 
   if (role === 'child' && childPage === 'compose') {
     return (
@@ -114,23 +149,55 @@ function App() {
     );
   }
 
-  if (role === 'partner' && !partnerPage) {
-    return (
-      <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-        <h2>What would you like to do?</h2>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '2rem' }}>
-          <button onClick={() => setPartnerPage('compose')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
-            <img src="/compose.png" alt="Compose" style={{ width: '120px', height: '120px' }} />
-            <div>Compose Message</div>
-          </button>
-          <button onClick={() => setPartnerPage('receive')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
-            <img src="/receive.png" alt="Receive" style={{ width: '120px', height: '120px' }} />
-            <div>Receive Message</div>
-          </button>
-        </div>
-      </div>
-    );
+//   if (role === 'partner' && !partnerPage) {
+//     return (
+//       <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+//         <h2>What would you like to do?</h2>
+//         <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '2rem' }}>
+//           <button onClick={() => setPartnerPage('compose')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
+//             <img src="/compose.png" alt="Compose" style={{ width: '120px', height: '120px' }} />
+//             <div>Compose Message</div>
+//           </button>
+//           <button onClick={() => setPartnerPage('receive')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
+//             <img src="/receive.png" alt="Receive" style={{ width: '120px', height: '120px' }} />
+//             <div>Receive Message</div>
+//           </button>
+//         </div>
+//       </div>
+//     );
+//   }
+
+if (role === 'partner' && !partnerPage) {
+	return (
+	  <div style={{ textAlign: 'center', marginTop: '3rem', position: 'relative' }}>
+		<button
+		  onClick={() => setRole(null)}
+		  style={{
+			position: 'absolute',
+			top: '1rem',
+			left: '1rem',
+			background: 'transparent',
+			border: 'none',
+			fontSize: '1.5rem',
+			cursor: 'pointer'
+		  }}
+		>⬅</button>
+
+		<h2>What would you like to do?</h2>
+		<div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '2rem' }}>
+		  <button onClick={() => setPartnerPage('compose')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
+			<img src="/compose.png" alt="Compose" style={{ width: '120px', height: '120px' }} />
+			<div>Compose Message</div>
+		  </button>
+		  <button onClick={() => setPartnerPage('receive')} style={{ border: 'none', background: 'none', cursor: 'pointer' }}>
+			<img src="/receive.png" alt="Receive" style={{ width: '120px', height: '120px' }} />
+			<div>Receive Message</div>
+		  </button>
+		</div>
+	  </div>
+	);
   }
+
 
   if (role === 'partner' && partnerPage === 'compose') {
     return (
