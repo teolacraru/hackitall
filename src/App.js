@@ -34,10 +34,10 @@ function App() {
     return () => window.removeEventListener('storage', handleStorage);
   }, []);
 
-  const sendMessage = (to, content) => {
+  const sendMessage = (to, fullMessage) => {
     setMessagesByReceiver((prev) => ({
       ...prev,
-      [to]: [...(prev[to] || []), content]
+      [to]: [...(prev[to] || []), fullMessage]
     }));
   };
 

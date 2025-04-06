@@ -176,7 +176,9 @@
 // export default ChildUI;
 
 // ChildUI.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {generateSentenceFromWords} from './api/words_to_sentence.js'  // Importing the function to convert words to sentences
+
 
 const vocabularyByCategory = {
   Actions: [
@@ -210,11 +212,19 @@ function ChildUI({ receiver, sendMessage, messages, mode, onExit }) {
     setLocalPhrase([...localPhrase, word]);
   };
 
-  const sendPhrase = () => {
-    const phrase = localPhrase.join(' ');
-    sendMessage(receiver, phrase);
-    setSentMessages((prev) => [...prev, phrase]);
-    setLocalPhrase([]);
+  const sendPhrase = async () => {
+	if (localPhrase.length === 0) return;
+
+	const sentence = await generateSentenceFromWords(localPhrase);
+
+	const fullMessage = {
+	  original: [...localPhrase],
+	  sentence: sentence || "Generating..."
+	};
+
+	sendMessage(receiver, fullMessage);
+	setSentMessages((prev) => [...prev, fullMessage]);
+	setLocalPhrase([]);
   };
 
   const getEmojiForWord = (word) => {
