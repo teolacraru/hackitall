@@ -1,36 +1,84 @@
 import React, { useState, useEffect } from 'react';
 import {generateSentenceFromWords} from './api/words_to_sentence.js'  // Importing the function to convert words to sentences
-
+import {reduceSentenceToKnownWords} from './api/sentence_to_words.js' // Importing the function to reduce sentences to known words
 
 const vocabularyByCategory = {
-Actions: [
-	{ word: 'want', emoji: '👐' },
-	{ word: 'play', emoji: '⚽' },
-	{ word: 'eat', emoji: '🍽️' },
+	Actions: [
+	  { word: 'want', emoji: '👐' },
+	  { word: 'play', emoji: '⚽' },
+	  { word: 'eat', emoji: '🍽️' },
+	  { word: 'drink', emoji: '🥤' },
+	  { word: 'sleep', emoji: '😴' },
+	  { word: 'read', emoji: '📖' },
+	  { word: 'run', emoji: '🏃' },
+	  { word: 'watch', emoji: '👀' },
+	  { word: 'draw', emoji: '🖍️' },
+	  { word: 'dance', emoji: '💃' },
 	],
 	Needs: [
-	{ word: 'water', emoji: '💧' },
-	{ word: 'bathroom', emoji: '🚽' },
-	{ word: 'help', emoji: '🆘' },
+	  { word: 'water', emoji: '💧' },
+	  { word: 'bathroom', emoji: '🚽' },
+	  { word: 'help', emoji: '🆘' },
+	  { word: 'food', emoji: '🍕' },
+	  { word: 'medicine', emoji: '💊' },
+	  { word: 'hug', emoji: '🤗' },
+	  { word: 'break', emoji: '⏸️' },
+	  { word: 'sleep', emoji: '🛌' },
+	  { word: 'toy', emoji: '🧸' },
+	  { word: 'blanket', emoji: '🛏️' },
 	],
 	Places: [
-	{ word: 'outside', emoji: '🌳' },
-	{ word: 'home', emoji: '🏠' },
-	{ word: 'school', emoji: '🏫' },
+	  { word: 'outside', emoji: '🌳' },
+	  { word: 'home', emoji: '🏠' },
+	  { word: 'school', emoji: '🏫' },
+	  { word: 'park', emoji: '🏞️' },
+	  { word: 'kitchen', emoji: '🍽️' },
+	  { word: 'bathroom', emoji: '🚻' },
+	  { word: 'bedroom', emoji: '🛏️' },
+	  { word: 'hospital', emoji: '🏥' },
+	  { word: 'store', emoji: '🏪' },
+	  { word: 'car', emoji: '🚗' },
 	],
 	People: [
-	{ word: 'I', emoji: '👦' },
-	{ word: 'mom', emoji: '👩' },
-	{ word: 'dad', emoji: '👨' },
+	  { word: 'I', emoji: '👦' },
+	  { word: 'mom', emoji: '👩' },
+	  { word: 'dad', emoji: '👨' },
+	  { word: 'sister', emoji: '👧' },
+	  { word: 'brother', emoji: '👦' },
+	  { word: 'teacher', emoji: '🧑‍🏫' },
+	  { word: 'friend', emoji: '🧑‍🤝‍🧑' },
+	  { word: 'grandma', emoji: '👵' },
+	  { word: 'grandpa', emoji: '👴' },
+	  { word: 'nurse', emoji: '🧑‍⚕️' },
 	],
-};
+  };
+
 
 function PartnerUI({ receiver, sendMessage, messages, mode, onExit }) {
-  const [localPhrase, setLocalPhrase] = useState([]);
+  const [seqPhrase, setSeqPhrase] = useState([]);
+  const [manualSentence, setManualSentence] = useState('');
+
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [sentMessages, setSentMessages] = useState([]);
 
   const [localMessages, setLocalMessages] = useState([]);
+  const sendPhrase = async () => {
+	let phrase;
+	console.log('Sending phrase:', seqPhrase, manualSentence);
+	if (manualSentence.trim().length > 0) {
+		const reducedWords = await reduceSentenceToKnownWords(manualSentence.trim());
+		phrase = reducedWords.join(' ');
+	} else if (seqPhrase.length > 0) {
+		phrase = seqPhrase;
+	} else {
+		return; // nimic de trimis
+	}
+
+	sendMessage(receiver, phrase);
+	setSentMessages((prev) => [...prev, phrase]);
+	setManualSentence('');
+	setSeqPhrase([]);  };
+
 
   useEffect(() => {
 	if (mode === 'receive') {
@@ -43,14 +91,7 @@ function PartnerUI({ receiver, sendMessage, messages, mode, onExit }) {
   }, [mode, receiver]);
 
   const addWord = (word) => {
-    setLocalPhrase([...localPhrase, word]);
-  };
-
-  const sendPhrase = () => {
-    const phrase = localPhrase.join(' ');
-    sendMessage(receiver, phrase);
-    setSentMessages((prev) => [...prev, phrase]);
-    setLocalPhrase([]);
+    setSeqPhrase([...seqPhrase, word]);
   };
 
   if (mode === 'receive') {
@@ -185,8 +226,26 @@ function PartnerUI({ receiver, sendMessage, messages, mode, onExit }) {
         </div>
       )}
 
+		<div style={{ marginTop: '2rem' }}>
+		<h4>Or write a sentence manually:</h4>
+		<input
+			type="text"
+			value={manualSentence}
+			onChange={(e) => setManualSentence(e.target.value)}
+			placeholder="Type your sentence here..."
+			style={{
+			padding: '0.5rem',
+			width: '80%',
+			fontSize: '1rem',
+			borderRadius: '8px',
+			border: '1px solid #ccc',
+			}}
+		/>
+		</div>
+
+
       <div style={{ marginTop: '2rem' }}>
-        <strong>Preview:</strong> {localPhrase.join(' ')}
+        <strong>Preview:</strong> {manualSentence || seqPhrase.join(' ')}
       </div>
       <button onClick={sendPhrase} style={{ marginTop: '1rem' }}>
         Send

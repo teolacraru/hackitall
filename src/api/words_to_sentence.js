@@ -43,9 +43,3 @@ Avoid extra complex vocabulary or grammar.
   console.log(response.choices[0].message.content);
   return response.choices[0].message.content;
 }
-
-// ✅ Exemplu de apel
-// const words = ["water", "I"];
-// main(words).catch((err) => {
-//   console.error("Error while running the script:", err);
-// });

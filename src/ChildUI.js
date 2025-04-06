@@ -181,27 +181,56 @@ import {generateSentenceFromWords} from './api/words_to_sentence.js'  // Importi
 
 
 const vocabularyByCategory = {
-  Actions: [
-    { word: 'want', emoji: '👐' },
-    { word: 'play', emoji: '⚽' },
-    { word: 'eat', emoji: '🍽️' },
-  ],
-  Needs: [
-    { word: 'water', emoji: '💧' },
-    { word: 'bathroom', emoji: '🚽' },
-    { word: 'help', emoji: '🆘' },
-  ],
-  Places: [
-    { word: 'outside', emoji: '🌳' },
-    { word: 'home', emoji: '🏠' },
-    { word: 'school', emoji: '🏫' },
-  ],
-  People: [
-    { word: 'I', emoji: '👦' },
-    { word: 'mom', emoji: '👩' },
-    { word: 'dad', emoji: '👨' },
-  ],
-};
+	Actions: [
+	  { word: 'want', emoji: '👐' },
+	  { word: 'play', emoji: '⚽' },
+	  { word: 'eat', emoji: '🍽️' },
+	  { word: 'drink', emoji: '🥤' },
+	  { word: 'sleep', emoji: '😴' },
+	  { word: 'read', emoji: '📖' },
+	  { word: 'run', emoji: '🏃' },
+	  { word: 'watch', emoji: '👀' },
+	  { word: 'draw', emoji: '🖍️' },
+	  { word: 'dance', emoji: '💃' },
+	],
+	Needs: [
+	  { word: 'water', emoji: '💧' },
+	  { word: 'bathroom', emoji: '🚽' },
+	  { word: 'help', emoji: '🆘' },
+	  { word: 'food', emoji: '🍕' },
+	  { word: 'medicine', emoji: '💊' },
+	  { word: 'hug', emoji: '🤗' },
+	  { word: 'break', emoji: '⏸️' },
+	  { word: 'sleep', emoji: '🛌' },
+	  { word: 'toy', emoji: '🧸' },
+	  { word: 'blanket', emoji: '🛏️' },
+	],
+	Places: [
+	  { word: 'outside', emoji: '🌳' },
+	  { word: 'home', emoji: '🏠' },
+	  { word: 'school', emoji: '🏫' },
+	  { word: 'park', emoji: '🏞️' },
+	  { word: 'kitchen', emoji: '🍽️' },
+	  { word: 'bathroom', emoji: '🚻' },
+	  { word: 'bedroom', emoji: '🛏️' },
+	  { word: 'hospital', emoji: '🏥' },
+	  { word: 'store', emoji: '🏪' },
+	  { word: 'car', emoji: '🚗' },
+	],
+	People: [
+	  { word: 'I', emoji: '👦' },
+	  { word: 'mom', emoji: '👩' },
+	  { word: 'dad', emoji: '👨' },
+	  { word: 'sister', emoji: '👧' },
+	  { word: 'brother', emoji: '👦' },
+	  { word: 'teacher', emoji: '🧑‍🏫' },
+	  { word: 'friend', emoji: '🧑‍🤝‍🧑' },
+	  { word: 'grandma', emoji: '👵' },
+	  { word: 'grandpa', emoji: '👴' },
+	  { word: 'nurse', emoji: '🧑‍⚕️' },
+	],
+  };
+
 
 function ChildUI({ receiver, sendMessage, messages, mode, onExit }) {
   const [localPhrase, setLocalPhrase] = useState([]);

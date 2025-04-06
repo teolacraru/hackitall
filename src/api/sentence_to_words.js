@@ -1,29 +1,64 @@
 import OpenAI from "openai";
 
 // Tokenul tău de acces API
-const token = "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";
+const token = "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";
 
-// 🔠 Vector de stringuri cu cuvintele pe care le știe copilul
 const knownWords = [
-  "I",
-  "dad",
-  "mum",
-  "want",
-  "eat",
-  "play",
-  "water",
-  "bathroom",
-  "help",
-  "outside",
-  "school",
-  "home",
-  "walk"
-];
+	// People
+	"I",
+	"mom",
+	"dad",
+	"sister",
+	"brother",
+	"teacher",
+	"friend",
+	"grandma",
+	"grandpa",
+	"nurse",
+
+	// Actions
+	"want",
+	"play",
+	"eat",
+	"drink",
+	"sleep",
+	"read",
+	"run",
+	"watch",
+	"draw",
+	"dance",
+
+	// Needs
+	"water",
+	"bathroom",
+	"help",
+	"food",
+	"medicine",
+	"hug",
+	"break",
+	"sleep", // deja apare la Actions, dar lăsăm pentru claritate
+	"toy",
+	"blanket",
+
+	// Places
+	"outside",
+	"home",
+	"school",
+	"park",
+	"kitchen",
+	"bathroom", // deja apare la Needs
+	"bedroom",
+	"hospital",
+	"store",
+	"car"
+  ];
+
 
 export async function reduceSentenceToKnownWords(sentence) {
   const client = new OpenAI({
     baseURL: "https://models.inference.ai.azure.com",
-    apiKey: token
+    apiKey: token,
+	dangerouslyAllowBrowser: true
   });
 
   const prompt = `
@@ -80,10 +115,3 @@ If no words apply, return an empty array. Never return null or undefined.
   console.log("✅ Final result as string array:", extractedWords);
   return extractedWords;
 }
-
-// 🧪 Exemplu de utilizare
-const sentence = "Go to restroom with dad.";
-
-reduceSentenceToKnownWords(sentence).catch(err => {
-  console.error("Eroare la apelul OpenAI:", err);
-});
