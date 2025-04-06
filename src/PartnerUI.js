@@ -53,7 +53,6 @@ const vocabularyByCategory = {
 	],
   };
 
-
 function PartnerUI({ receiver, sendMessage, messages, mode, onExit }) {
   const [seqPhrase, setSeqPhrase] = useState([]);
   const [manualSentence, setManualSentence] = useState('');
@@ -69,7 +68,7 @@ function PartnerUI({ receiver, sendMessage, messages, mode, onExit }) {
 		const reducedWords = await reduceSentenceToKnownWords(manualSentence.trim());
 		phrase = reducedWords.join(' ');
 	} else if (seqPhrase.length > 0) {
-		phrase = seqPhrase;
+		phrase = seqPhrase.join(' ');
 	} else {
 		return; // nimic de trimis
 	}
