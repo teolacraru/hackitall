@@ -1,7 +1,7 @@
-# Getting Started with Create React App
+🧠 AAC Communicator
+AAC Communicator is an Augmentative and Alternative Communication tool designed to help nonverbal children, especially those on the autism spectrum, to express themselves through images and AI-powered sentence generation. The application allows seamless interaction between a Child and a Parent interface.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+It was built in 24 hours during the HackITAll II 2025 hackathon and received the Innovation Award for its impact, creativity, and real-world applicability.
 ## Available Scripts
 
 In the project directory, you can run:
